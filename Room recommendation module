@@ -1,0 +1,63 @@
+class RoomPlanner:
+
+    def __init__(self, plot_area, family_members):
+        self.plot_area = plot_area
+        self.family_members = family_members
+
+    def recommend_bedrooms(self):
+
+        if self.family_members <= 2:
+            return 1
+        elif self.family_members <= 4:
+            return 2
+        elif self.family_members <= 6:
+            return 3
+        else:
+            return 4
+
+    def recommend_bathrooms(self):
+
+        bedrooms = self.recommend_bedrooms()
+
+        if bedrooms <= 2:
+            return 2
+        else:
+            return 3
+
+    def space_distribution(self):
+
+        distribution = {
+            "Living Room": int(self.plot_area * 0.25),
+            "Bedrooms": int(self.plot_area * 0.40),
+            "Kitchen": int(self.plot_area * 0.15),
+            "Bathrooms": int(self.plot_area * 0.10),
+            "Other Spaces": int(self.plot_area * 0.10)
+        }
+
+        return distribution
+
+    def generate_report(self):
+
+        report = {
+            "Recommended Bedrooms": self.recommend_bedrooms(),
+            "Recommended Bathrooms": self.recommend_bathrooms(),
+            "Space Distribution": self.space_distribution()
+        }
+
+        return report
+
+
+if __name__ == "__main__":
+
+    planner = RoomPlanner(
+        plot_area=2000,
+        family_members=5
+    )
+
+    report = planner.generate_report()
+
+    print("\nROOM PLANNING REPORT")
+    print("-" * 40)
+
+    for key, value in report.items():
+        print(f"{key}: {value}")
